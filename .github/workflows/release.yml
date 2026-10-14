@@ -2,7 +2,7 @@ name: Release
 
 # Run from main after bumping "version" in package.json. Builds dist/, commits it on a release
 # commit that only the tag points at (main never carries dist/), tags it v<version> and pushes the
-# tag, so `pnpm add github:theframeworks/ai-solid#semver:^x.y.z` installs with no build step.
+# tag, so that `pnpm add github:theframeworks/ai-solid#semver:^x.y.z` installs with no build step.
 on:
   workflow_dispatch:
 
