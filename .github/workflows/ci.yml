@@ -39,7 +39,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Install the latest ai
         run: |
-          pnpm add --save-dev ai@latest
+          # The latest ai may be newer than pnpm's minimum release age; this job wants it anyway.
+          pnpm add --save-dev ai@latest --config.minimum-release-age=0
           echo "Testing against ai $(node -p "require('ai/package.json').version")" >> "$GITHUB_STEP_SUMMARY"
       - name: Type check and test
         run: pnpm typecheck && pnpm test
