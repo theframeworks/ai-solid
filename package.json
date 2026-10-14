@@ -1,0 +1,55 @@
+{
+  "name": "@theframeworks/ai-solid",
+  "version": "0.1.0",
+  "description": "A Solid adapter for the ai SDK's chat, ported from @ai-sdk/vue.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theframeworks/ai-solid.git"
+  },
+  "packageManager": "pnpm@12.6.0",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "NOTICE",
+    "licenses"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check": "pnpm typecheck && pnpm test && pnpm build"
+  },
+  "peerDependencies": {
+    "ai": "^7",
+    "solid-js": "^1.9 <2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "ai": "^7.0.139",
+    "solid-js": "^1.9.17",
+    "typescript": "6.0.3",
+    "vitest": "5.0.4"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": [
+    "ai",
+    "ai-sdk",
+    "solid",
+    "solid-js",
+    "chat"
+  ]
+}

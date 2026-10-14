@@ -1,0 +1,9 @@
+@theframeworks/ai-solid
+Copyright (c) 2026 The Frameworks. Licensed under the MIT License (LICENSE).
+
+src/chat-state.ts, src/chat.ts and src/create-chat.ts are ported from the
+chat files of @ai-sdk/vue (https://github.com/vercel/ai, packages/vue),
+Copyright 2023 Vercel, Inc., licensed under the Apache License, Version 2.0
+(licenses/ai-sdk-vue.LICENSE, full text in licenses/Apache-2.0.txt).
+Changes: Vue refs became Solid signals and accessors; useChat became
+createChat; each file's header notes its changes.

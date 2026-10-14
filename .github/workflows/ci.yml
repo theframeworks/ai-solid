@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  schedule:
+    # Mondays 06:00 UTC: the latest-ai job catches an ai release that breaks the adapter.
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v4
+      - run: pnpm install --frozen-lockfile
+      - name: Type check, test and build
+        run: pnpm check
+
+  latest-ai:
+    name: Tests against the latest ai
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v4
+      - run: pnpm install --frozen-lockfile
+      - name: Install the latest ai
+        run: |
+          pnpm add --save-dev ai@latest
+          echo "Testing against ai $(node -p "require('ai/package.json').version")" >> "$GITHUB_STEP_SUMMARY"
+      - name: Type check and test
+        run: pnpm typecheck && pnpm test
